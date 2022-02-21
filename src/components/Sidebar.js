@@ -1,8 +1,16 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
+
 import { navItems } from "../utils";
 
 const Sidebar = () => {
+  const [activeIcon, setActiveIcon] = useState(navItems[0].title);
+
+  const handleClick = (title) => () => {
+    setActiveIcon(title);
+  };
+
   return (
     <Wrapper>
       <LogoContainer>
@@ -12,8 +20,12 @@ const Sidebar = () => {
       </LogoContainer>
       <NavItemsContainer>
         {navItems.map((navItem, index) => (
-          <NavItem key={index}>
-            <NavIcon>{navItem.icon}</NavIcon>
+          <NavItem key={index} onClick={handleClick(navItem.title)}>
+            <NavIcon
+              style={{ color: navItem.title === activeIcon && "#3773f5" }}
+            >
+              {navItem.icon}
+            </NavIcon>
             <NavTitle>{navItem.title}</NavTitle>
           </NavItem>
         ))}
