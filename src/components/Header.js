@@ -1,6 +1,35 @@
 import styled from "styled-components";
+import Modal from "react-modal";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const Header = ({ address, connectWallet }) => {
+import TransferModal from "./modal/TransferModal";
+
+Modal.setAppElement("#__next");
+
+const Header = ({ address, sanityTokens, thirdWebTokens, connectWallet }) => {
+  const router = useRouter();
+
+  const isOpen = !!router.query.transfer;
+
+  const handleModalClose = () => router.push("/");
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      transform: "translate(-50%, -50%)",
+      backgroundColor: "#0a0b0d",
+      padding: 0,
+      border: "none",
+    },
+    overlay: {
+      backgroundColor: "rgba(10, 11, 13, 0.75)",
+    },
+  };
+
   return (
     <Wrapper>
       <Title>Assets</Title>
@@ -14,8 +43,21 @@ const Header = ({ address, connectWallet }) => {
         <Button style={{ backgroundColor: "#3773f5", color: "#000" }}>
           Buy / Sell
         </Button>
-        <Button>Send / Recieve</Button>
+        <Link href="/?transfer=1">
+          <Button>Send / Recieve</Button>
+        </Link>
       </ButtonsContainer>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={handleModalClose}
+        style={customStyles}
+      >
+        <TransferModal
+          address={address}
+          sanityTokens={sanityTokens}
+          thirdWebTokens={thirdWebTokens}
+        />
+      </Modal>
     </Wrapper>
   );
 };
