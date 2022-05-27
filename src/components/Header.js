@@ -30,20 +30,22 @@ const Header = ({ address, sanityTokens, thirdWebTokens, connectWallet }) => {
     },
   };
 
+  const trimmedAddress = address
+    ? `${address.slice(0, 7)}...${address.slice(35)}`
+    : "";
+
   return (
     <Wrapper>
       <Title>Assets</Title>
       <ButtonsContainer>
         <WalletLink>
           <WalletLinkTitle>Wallet Connected</WalletLinkTitle>
-          <WalletAddress>
-            {address.slice(0, 7)}...{address.slice(35)}
-          </WalletAddress>
+          <WalletAddress>{trimmedAddress}</WalletAddress>
         </WalletLink>
         <Button style={{ backgroundColor: "#3773f5", color: "#000" }}>
           Buy / Sell
         </Button>
-        <Link href="/?transfer=1">
+        <Link href="/?transfer=1" passHref>
           <Button>Send / Recieve</Button>
         </Link>
       </ButtonsContainer>

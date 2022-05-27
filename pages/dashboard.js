@@ -55,8 +55,6 @@ const Dashboard = ({ address }) => {
   );
 };
 
-export default Dashboard;
-
 const Wrapper = styled.div`
   display: flex;
   height: 100vh;
@@ -69,3 +67,5 @@ const Wrapper = styled.div`
 const MainContainer = styled.div`
   flex: 1;
 `;
+
+export default Dashboard;
